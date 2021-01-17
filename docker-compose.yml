@@ -57,7 +57,7 @@ services:
       - spark-master
     networks:
       - localnet
-  
+
   # MongoDB Replica Set
   mongo1:
     image: "mongo:latest"
@@ -92,6 +92,17 @@ services:
     ports:
       - "27019:27017"
     restart: always
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    networks:
+      - localnet
+    restart: always
+    ports:
+      - 8181:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo1
 
 networks:
     localnet:

@@ -10,7 +10,7 @@ The Docker files will spin up the following environment:
 
 ## Getting the environment up and running
 
-Execute the `run.sh` script file.  This runs the docker compose file which creates a three node MongoDB cluster, configures it as a replica set on prt 27017. Spark is also deployed in this environment with a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively.  The MongoDB cluster will be used for both reading data into Spark and writing data from Spark back into MongoDB. 
+Execute the `run.sh` script file.  This runs the docker compose file which creates a three node MongoDB cluster, configures it as a replica set on prt 27017. Spark is also deployed in this environment with a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively.  The MongoDB cluster will be used for both reading data into Spark and writing data from Spark back into MongoDB.
 
 Note: You may have to mark the .SH file as runnable with the `chmod` command i.e. `chmod +x run.sh`
 
@@ -49,6 +49,12 @@ spark = SparkSession.\
         config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.12:3.0.0").\
         getOrCreate()
 ```
+
+Then, we should load the data from mongoDB into Spark:
+```
+df = spark.read.format("mongo").load()
+```
+
 Next, let’s verify the configuration worked by looking at the schema:
 ```
 df.printSchema()
@@ -65,7 +71,7 @@ from pyspark.sql import functions as F
 movAvg = df.withColumn("movingAverage", F.avg("price")
              .over( Window.partitionBy("company_symbol").rowsBetween(-1,1)) )
 ```
-To see our data with the new moving average column we can issue a 
+To see our data with the new moving average column we can issue a
 movAvg.show().
 
 `movAvg.show()`
@@ -110,4 +116,3 @@ Parameter | Description
 This data generator tool is designed to write to one collection and read from another.  It is also used as part of a Kafka connector demo where the data is flowing through the Kafka system.  In our repository example, if you just want to see the data as it is written to the "Source" collection use the -r parameter as follows:
 
 `python3 create-stock-data.py -r Source`
-
