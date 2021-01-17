@@ -18,6 +18,8 @@ To verify our Spark master and works are online navigate to http://localhost:808
 
 We can verify that the Jupyter Lab is up and running by navigating to the URL: http://localhost:8888
 
+To get access to the MongoDB content: http://localhost:8181
+
 The Jupyter notebook URL which includes its access token will be listed at the end of the `run.sh` script.  NOTE: This token will be generated when you run the docker image so it will be different for you.  Here is what it looks like:
 
 ![Image of url with token](https://github.com/RWaltersMA/mongo-spark-jupyter/blob/master/images/url.png)
