@@ -1,5 +1,3 @@
-<script src="https://gist.github.com/joshbode/491ad0e678d456ea8ddc.js"></script>
-
 # Using MongoDB with Jupyter Labs
 
 This repository showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark.  We will load financial security data from MongoDB, calculate a moving average then update the data in MongoDB with these new data.  This repository has two components:
